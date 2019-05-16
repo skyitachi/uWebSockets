@@ -23,44 +23,54 @@
 #include <cstdint>
 
 namespace uWS {
-namespace utils {
-
-inline int u32toaHex(uint32_t value, char *dst) {
-    char palette[] = "0123456789abcdef";
-    char temp[10];
-    char *p = temp;
-    do {
+  namespace utils {
+    
+    inline int u32toaHex(uint32_t value, char *dst) {
+      char palette[] = "0123456789abcdef";
+      char temp[10];
+      char *p = temp;
+      do {
         *p++ = palette[value % 16];
         value /= 16;
-    } while (value > 0);
-
-    int ret = p - temp;
-
-    do {
+      } while (value > 0);
+      
+      int ret = p - temp;
+      
+      do {
         *dst++ = *--p;
-    } while (p != temp);
-
-    return ret;
-}
-
-inline int u32toa(uint32_t value, char *dst) {
-    char temp[10];
-    char *p = temp;
-    do {
+      } while (p != temp);
+      
+      return ret;
+    }
+    
+    inline int u32toa(uint32_t value, char *dst) {
+      char temp[10];
+      char *p = temp;
+      do {
         *p++ = (char) (value % 10) + '0';
         value /= 10;
-    } while (value > 0);
-
-    int ret = p - temp;
-
-    do {
+      } while (value > 0);
+      
+      int ret = p - temp;
+      
+      do {
         *dst++ = *--p;
-    } while (p != temp);
-
-    return ret;
-}
-
-}
+      } while (p != temp);
+      
+      return ret;
+    }
+    
+    void printHexStringLine(char *s, int length) {
+      for(int i = 0; i < length; i++) {
+        if (i) {
+          printf(" ");
+        }
+        printf("%02x", (uint8_t)s[i]);
+      }
+      printf("\n");
+    }
+    
+  }
 }
 
 #endif // UTILITIES_H
